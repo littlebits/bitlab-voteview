@@ -24,6 +24,9 @@ var apiAuth = authUser && authPass
 
 
 
+/*
+getProject :: projectId:Int -> Promise Project:Object
+*/
 exports.getProject = function(projectId) {
 
   var requestConfig = {
@@ -41,6 +44,9 @@ exports.getProject = function(projectId) {
 
 
 
+/*
+getProjectVotes :: projectId:Int -> Promise votes:Int
+*/
 exports.getProjectVotes = function(projectId) {
   return exports
     .getProject(projectId)
