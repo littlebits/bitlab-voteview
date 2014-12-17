@@ -15,5 +15,5 @@ deviceProjectMappings:
   - deviceId: 00e04c02c297
     projectId: 53
 
- - deviceId: 00e04c1f0f12
-   projectId: 48
+  - deviceId: 00e04c1f0f12
+    projectId: 48
