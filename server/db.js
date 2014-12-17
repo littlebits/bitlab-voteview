@@ -6,7 +6,7 @@ var request = Promise.promisify(require('request'))
 /* Gather API details. These have defaults but can be overrided via
 ENV vars which is useful for working with non-production servers etc. */
 
-var apiHost = process.env.BITLAB_VOTEVIEW_HOST || 'http://littlebits.cc/bitlab/bits'
+var apiHost = process.env.BITLAB_VOTEVIEW_HOST || 'https://littlebits.cc/bitlab/bits'
 
 /* Support APIs behind HTTP Basic Auth. This is mainly a feature to support
 the fact that littleBits puts stg servers behind Basic Auth and this project
