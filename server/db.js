@@ -24,7 +24,7 @@ var apiAuth = authUser && authPass
 
 
 
-exports.getProjectVotes = function(projectId) {
+exports.getProject = function(projectId) {
 
   var requestConfig = {
     method: 'get',
@@ -35,5 +35,30 @@ exports.getProjectVotes = function(projectId) {
 
   return request(requestConfig)
   .get(0)
+  .catch(is500, createError500)
   .get('body')
+}
+
+
+
+exports.getProjectVotes = function(projectId) {
+  return exports
+    .getProject(projectId)
+    .get('vote_count')
+}
+
+
+
+// Helpers
+
+function is500(res) {
+  return res.statusCode === 500
+}
+
+function createError500(res) {
+  throw new Error(
+    res.body && res.body.error && res.body.error.message
+    ? res.body.error.message
+    : 'Unknown bitLab Server error.'
+  )
 }

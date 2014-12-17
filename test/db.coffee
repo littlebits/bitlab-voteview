@@ -1,10 +1,16 @@
 db = require('../server/db')
 
 describe 'db.js', ->
+  @timeout(5000)
 
-  describe 'getProjectVotes', ->
+  describe 'getProject', ->
 
-    it 'returns current total votes for a project', ->
-      db.getProjectVotes(50)
+    it 'returns a bitLab project', ->
+      db.getProject(50)
       .tap (project)->
         eq project.id, 50
+
+    it 'returns votes for a bitLab project', ->
+      db.getProjectVotes(50)
+      .tap (voteCount)->
+        a.isNumber voteCount
