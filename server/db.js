@@ -39,6 +39,7 @@ exports.getProject = function(projectId) {
   return request(requestConfig)
   .get(0)
   .catch(is500, createError500)
+  .tap(console.log)
   .get('body')
 }
 
