@@ -1,0 +1,19 @@
+deviceProjectMappings:
+
+  - deviceId: 00e04c1e811a
+    projectId: 55
+
+  - deviceId: 00e04c02c217
+    projectId: 61
+
+  - deviceId: 00e04c1f024e
+    projectId: 50
+
+  - deviceId: 00e04c1f0f4c
+    projectId: 54
+
+  - deviceId: 00e04c02c297
+    projectId: 53
+
+  - deviceId: 00e04c1f0f12
+    projectId: 48
