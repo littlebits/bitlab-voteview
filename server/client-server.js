@@ -8,7 +8,7 @@ var koa = require('koa')
 var app = koa()
 
 app.use(function *() {
-  this.body = 'Hello World'
+  this.body = 'This is the future home of the bitLab Voteview Console!'
 })
 
-app.listen(4500)
+app.listen(process.env.BITLAB_VOTEVIEW_CLIENT_SERVER_PORT || 80)
