@@ -51,7 +51,8 @@ getProjectVotes :: projectId:Int -> Promise votes:Int
 exports.getProjectVotes = function(projectId) {
   return exports
     .getProject(projectId)
-    .get('vote_count')
+    .return(0)
+    // .get('vote_count')
 }
 
 
