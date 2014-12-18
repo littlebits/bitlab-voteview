@@ -11,4 +11,4 @@ app.use(function *() {
   this.body = 'This is the future home of the bitLab Voteview Console!'
 })
 
-app.listen(process.env.PORT || 80)
+app.listen(process.env.PORT || 4500)
