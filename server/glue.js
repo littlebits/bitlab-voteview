@@ -1,31 +1,35 @@
 
 
 var VoteStream = require('./vote-stream')
+var DeviceOutputVotes = require('./device-output-votes')
 var log = require('./log').child({ component: 'glue' })
 
 
 
 module.exports = function glue(deviceProjectMappings) {
 
-  var queues = {}
-
-  var streams = deviceProjectMappings.map(function(mapping) {
-    queues[mapping.deviceId] = []
-    return VoteStream(mapping.projectId).onValue(function(votes) {
+  var links = deviceProjectMappings.map(function(mapping) {
+    var deviceOutputVotes = DeviceOutputVotes(mapping.deviceId)
+    var stream = VoteStream(mapping.projectId).onValue(function(votes) {
       /* Ignore the initial result which just tells us the current total votes.*/
       if (votes.before === null) return
 
-      var diff = votes.after - votes.before
-      log.debug('%d new vote(s) for project %s to device %s', diff, mapping.projectId, mapping.deviceId)
-      queues[mapping.deviceId].push(diff)
+      var addedVotesCount = votes.after - votes.before
+      log.debug('%d new vote(s) for project %s to device %s', addedVotesCount, mapping.projectId, mapping.deviceId)
+      deviceOutputVotes(addedVotesCount)
     })
+
+    return {
+      voteOutputQueue: deviceOutputVotes.queue,
+      voteStream: stream
+    }
   })
 
   return {
-    queues: queues,
+    links: links,
     end: function() {
-      streams.forEach(function(stream) {
-        stream.end()
+      links.forEach(function(link) {
+        link.voteStream.end()
       })
     }
   }
