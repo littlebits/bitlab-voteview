@@ -1,6 +1,7 @@
 
 
 var VoteStream = require('./vote-stream')
+var log = require('./log').child({ component: 'glue' })
 
 
 
@@ -12,13 +13,10 @@ module.exports = function glue(deviceProjectMappings) {
     queues[mapping.deviceId] = []
     return VoteStream(mapping.projectId).onValue(function(votes) {
       /* Ignore the initial result which just tells us the current total votes.*/
-      if (votes.before === null) {
-        // console.log('Begin polling project %s which currently has %d votes.', mapping.projectId, votes.after)
-        return
-      }
+      if (votes.before === null) return
 
       var diff = votes.after - votes.before
-      // console.log('%d new vote(s) for project %s to device %s', diff, mapping.projectId, mapping.deviceId)
+      log.debug('%d new vote(s) for project %s to device %s', diff, mapping.projectId, mapping.deviceId)
       queues[mapping.deviceId].push(diff)
     })
   })
