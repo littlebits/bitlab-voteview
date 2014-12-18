@@ -39,6 +39,7 @@ exports.getProject = function(projectId) {
   return request(requestConfig)
   .get(0)
   .catch(is500, createError500)
+  .tap(console.log)
   .get('body')
 }
 
@@ -50,7 +51,7 @@ getProjectVotes :: projectId:Int -> Promise votes:Int
 exports.getProjectVotes = function(projectId) {
   return exports
     .getProject(projectId)
-    .tap(console.log)
+    .tap(console.log.bind(console, 'request body:'))
     .return(0)
     // .get('vote_count')
 }
