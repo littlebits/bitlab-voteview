@@ -7,29 +7,30 @@ describe 'voteStream', ->
 
 
   it 'returns the initial voteCount', (done)->
-    voteStream = VoteStream(1)
     data = id: 1, vote_count: 10
     mock = mockAPIBits(data: id:1, vote_count:10)
 
-    voteStream.onValue (voteCount)->
+    voteStream = VoteStream(1).onValue (voteCount)->
       voteStream.end()
       voteCount is 10
       mock.isDone()
       done()
 
 
-  it.skip 'Polls the API for new votes, only triggering onValue when when voteCount has changed', (done)->
-    @timeout(20000)
-    voteStream = VoteStream(1)
-    data = id: 1, vote_count: 10
-    mock1 = mockAPIBits(data: id:1, vote_count:10)
+  it 'Polls for new votes, onValue when when voteCount changes', (done)->
+    @timeout(50000)
+    nock 'https://littlebits.cc'
+    .get "/bitlab/bits/1.json"
+    .times(2)
+    .reply 200, id: 1, vote_count: 10
+    .get "/bitlab/bits/1.json"
+    .reply 200, id: 1, vote_count: 11
     expectedValues = [10, 11]
     i = 0
 
-    voteStream.onValue (voteCount)->
-      if i is expectedValues.length
+    voteStream = VoteStream(1).onValue (voteCount)->
+      if i is (expectedValues.length - 1)
         voteStream.end()
         done()
-      voteCount is expectedValues[i]
-      mock2 = mockAPIBits(data: id:1, vote_count:11)
+      eq voteCount, expectedValues[i]
       i++

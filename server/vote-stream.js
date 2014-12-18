@@ -10,10 +10,11 @@ module.exports = function voteStream(projectId) {
   var votesBefore
   var requestInterval
   var ended = false
-  return {
-    end: function(){
+  var api = {
+    end: function() {
       ended = true
       clearInterval(requestInterval)
+      return api
     },
     onValue: function(fn) {
       getProjectVotes(projectId)
@@ -21,15 +22,18 @@ module.exports = function voteStream(projectId) {
         fn(votesNow)
         requestInterval = setInterval(function() {
           getProjectVotes(projectId)
-          .then(function(votesNow){
+          .then(function(votesNow) {
             if (ended) return
-            if (votesNow !== votesBefore) {
+            if (votesBefore !== votesNow) {
               fn(votesNow)
               votesBefore = votesNow
-            }            
+            }
           })
-        }, 1000)
+        }, 2000)
       })
+      return api
     }
   }
+
+  return api
 }
