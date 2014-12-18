@@ -19,13 +19,20 @@ module.exports = function voteStream(projectId) {
     onValue: function(fn) {
       getProjectVotes(projectId)
       .then(function(votesNow) {
-        fn(votesNow)
+        votesBefore = votesNow
+        fn({
+          before: null,
+          after: votesNow
+        })
         requestInterval = setInterval(function() {
           getProjectVotes(projectId)
           .then(function(votesNow) {
             if (ended) return
             if (votesBefore !== votesNow) {
-              fn(votesNow)
+              fn({
+                before: votesBefore,
+                after: votesNow
+              })
               votesBefore = votesNow
             }
           })

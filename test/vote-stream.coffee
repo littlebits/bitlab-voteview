@@ -25,7 +25,10 @@ describe 'voteStream', ->
     .reply 200, id: 1, vote_count: 10
     .get "/bitlab/bits/1.json"
     .reply 200, id: 1, vote_count: 11
-    expectedValues = [10, 11]
+    expectedValues = [
+      { before: null, after: 10 }
+      { before: 10, after: 11 }
+    ]
     i = 0
 
     voteStream = VoteStream(1).onValue (voteCount)->
