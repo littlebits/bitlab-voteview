@@ -19,11 +19,11 @@ describe 'voteStream', ->
 
   it 'Polls for new votes, onValue when when voteCount changes', (done)->
     @timeout(50000)
-    nock 'https://littlebits.cc'
-    .get "/bitlab/bits/1.json"
-    .times(2)
+    nock 'https://littlebits.cc/bitlab/bits'
+    .get "/1.json"
+    .times 2
     .reply 200, id: 1, vote_count: 10
-    .get "/bitlab/bits/1.json"
+    .get "/1.json"
     .reply 200, id: 1, vote_count: 11
     expectedValues = [
       { before: null, after: 10 }

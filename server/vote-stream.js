@@ -25,9 +25,11 @@ module.exports = function voteStream(projectId) {
           after: votesNow
         })
         requestInterval = setInterval(function() {
+          // console.log('requestInterval loop')
           getProjectVotes(projectId)
           .then(function(votesNow) {
             if (ended) return
+            // console.log('request result: %j', votesNow)
             if (votesBefore !== votesNow) {
               fn({
                 before: votesBefore,

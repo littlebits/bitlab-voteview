@@ -1,11 +1,9 @@
-var koa = require('koa')
+var path = require('path')
+var yaml = require('js-yaml')
+var fs = require('fs')
+var data = yaml.safeLoad(fs.readFileSync(path.join(__dirname, 'data.yaml'), 'utf8'))
+var Glue = require('./glue')
 
 
 
-var app = koa()
-
-app.use(function *() {
-  this.body = 'Hello World'
-})
-
-app.listen(4500)
+Glue(data.deviceProjectMappings)
