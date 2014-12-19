@@ -9,7 +9,6 @@
     "bluebird": "^2.3.11",
     "bunyan": "^1.2.3",
     "js-yaml": "^3.2.3",
-    "koa": "^0.13.0",
     "littlebits-cloud-http": "^0.3.2",
     "request": "^2.51.0"
   },

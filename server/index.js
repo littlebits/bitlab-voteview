@@ -7,4 +7,3 @@ var Glue = require('./glue')
 
 
 Glue(data.deviceProjectMappings)
-require('./client-server')
