@@ -1,26 +1,10 @@
 {
-  "name": "bitlab-voteview",
-  "version": "0.0.0",
+  "license": "GPLv3",
   "private": true,
-  "description": "Create and manage links between bitLab votes and cloudBits",
-  "main": "index.js",
-  "engines": {
-    "node": "0.11.x"
-  },
   "scripts": {
     "test": "NODE_ENV=test mocha --compilers coffee:coffee-script/register",
     "start": "node --harmony server/index.js | bunyan --output short"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/littlebits/bitlab-voteview.git"
-  },
-  "author": "Jason Rose-Kuhrt<jasonuhrt@me.com>",
-  "license": "GPLv3",
-  "bugs": {
-    "url": "https://github.com/littlebits/bitlab-voteview/issues"
-  },
-  "homepage": "https://github.com/littlebits/bitlab-voteview",
   "dependencies": {
     "bluebird": "^2.3.11",
     "bunyan": "^1.2.3",
@@ -29,10 +13,26 @@
     "littlebits-cloud-http": "^0.3.2",
     "request": "^2.51.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/littlebits/bitlab-voteview.git"
+  },
+  "author": "Jason Rose-Kuhrt<jasonuhrt@me.com>",
+  "name": "bitlab-voteview",
+  "homepage": "https://github.com/littlebits/bitlab-voteview",
+  "engines": {
+    "node": "0.11.x"
+  },
+  "version": "0.1.0",
+  "main": "index.js",
+  "description": "Create and manage links between bitLab votes and cloudBits",
   "devDependencies": {
     "chai": "^1.10.0",
     "coffee-script": "^1.8.0",
     "mocha": "^2.0.1",
     "nock": "^0.52.1"
+  },
+  "bugs": {
+    "url": "https://github.com/littlebits/bitlab-voteview/issues"
   }
 }
