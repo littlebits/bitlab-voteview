@@ -37,7 +37,7 @@ function ConsumeOutputQueue(queue, deviceOutput) {
     if (consuming) return
     consuming = true
 
-    var clearLeadingInterval = setLeadingInterval(function(){
+    var clearLeadingInterval = setLeadingInterval(function() {
       if (queue.length) {
         queue.shift()
         log.info('About to send output to device.')
@@ -65,7 +65,7 @@ function setLeadingInterval(f, ms) {
   var interval
   var timeout = setTimeout(function(){
     if (interval === 'CLEARED') return
-    setInterval(f, ms)
+    interval = setInterval(f, ms)
   }, ms)
 
   return function clearLeadingInterval() {
