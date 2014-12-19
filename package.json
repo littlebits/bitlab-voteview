@@ -1,6 +1,7 @@
 {
   "name": "bitlab-voteview",
   "version": "0.0.0",
+  "private": true,
   "description": "Create and manage links between bitLab votes and cloudBits",
   "main": "index.js",
   "engines": {
