@@ -2,7 +2,12 @@
 
 Create and manage links between bitLab votes and cloudBits
 
+## Deploying Prerequisites
 
+- You have a [Kubernetes](http://kubernetes.io) cluster on [GKE](https://cloud.google.com/container-engine/)
+- You have [`envsubst`](http://stackoverflow.com/questions/23620827/envsubst-command-not-found-on-mac-os-x-10-8) installed
+- You have `gcloud` using default `--zone` `--cluster` and `--project`
+- If you are forking, your own Quay.io auto-build setup and have updated `deploy/pod.yaml` to point to it instead of littleBits
 
 ## Deploying
 
