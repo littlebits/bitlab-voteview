@@ -4,16 +4,16 @@ deviceProjectMappings:
     projectId: 55
 
   - deviceId: 00e04c02c217
-    projectId: 61
+    projectId: 65 
 
   - deviceId: 00e04c1f024e
-    projectId: 50
+    projectId: 75
 
   - deviceId: 00e04c1f0f4c
-    projectId: 54
+    projectId: 77
 
   - deviceId: 00e04c02c297
-    projectId: 53
+    projectId: 74
 
   - deviceId: 00e04c1f0f12
-    projectId: 48
+    projectId: 69
