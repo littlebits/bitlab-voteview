@@ -1,7 +1,5 @@
-
-
 var VoteStream = require('./vote-stream')
-var DeviceOutputVotes = require('./device-output-votes')
+var VoteSignaler = require('./vote-signaler')
 var log = require('./log').child({ component: 'glue' })
 
 
@@ -9,18 +7,18 @@ var log = require('./log').child({ component: 'glue' })
 module.exports = function glue(deviceProjectMappings) {
 
   var links = deviceProjectMappings.map(function(mapping) {
-    var deviceOutputVotes = DeviceOutputVotes(mapping.deviceId)
+    var signalVote = VoteSignaler(mapping.deviceId)
     var stream = VoteStream(mapping.projectId).onValue(function(votes) {
       /* Ignore the initial result which just tells us the current total votes.*/
       if (votes.before === null) return
 
       var addedVotesCount = votes.after - votes.before
       log.debug('%d new vote(s) for project %s to device %s', addedVotesCount, mapping.projectId, mapping.deviceId)
-      deviceOutputVotes(addedVotesCount)
+      signalVote(addedVotesCount)
     })
 
     return {
-      voteOutputQueue: deviceOutputVotes.queue,
+      voteOutputQueue: signalVote.queue,
       voteStream: stream
     }
   })

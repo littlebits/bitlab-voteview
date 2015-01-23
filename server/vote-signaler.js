@@ -1,24 +1,24 @@
+var outputConfig = require('./data').output
 var log = require('./log').child({ component: 'device-output-votes' })
 
-var MS_PER_VOTE = 84
-var MS_BETWEEN_OUTPUT = 1500
+
 
 var apiOutput = require('littlebits-cloud-http').output.defaults({
   access_token: process.env.BITLAB_VOTEVIEW_ACCESS_TOKEN,
-  percent: 100,
-  duration_ms: MS_PER_VOTE
+  percent: outputConfig.percent,
+  duration_ms: outputConfig.msPerVote
 })
 
 
 
-module.exports = function DeviceOutputm(deviceId) {
+module.exports = function VoteSignaler(deviceId) {
   var queue = []
   var deviceOutput = apiOutput.defaults({ device_id: deviceId })
   var consumeQueueItems = ConsumeOutputQueue(queue, deviceOutput)
 
   function addVotes(addedVotesCount) {
     while(addedVotesCount > 0) {
-      queue.push(MS_PER_VOTE)
+      queue.push(outputConfig.msPerVote)
       addedVotesCount--
     }
     consumeQueueItems()
@@ -28,6 +28,10 @@ module.exports = function DeviceOutputm(deviceId) {
 
   return addVotes
 }
+
+
+
+/* Private */
 
 function ConsumeOutputQueue(queue, deviceOutput) {
   var consuming = false
@@ -49,15 +53,11 @@ function ConsumeOutputQueue(queue, deviceOutput) {
         consuming = false
         clearLeadingInterval()
       }
-    }, MS_BETWEEN_OUTPUT)
+    }, outputConfig.msBetweenOutput)
   }
 }
 
-
-
-// Helpers
-
-function noop(){}
+function noop() {}
 
 function setLeadingInterval(f, ms) {
   f()

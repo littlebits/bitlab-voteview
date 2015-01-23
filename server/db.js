@@ -55,7 +55,7 @@ exports.getProjectVotes = function(projectId) {
 
 
 
-// Helpers
+/* Private */
 
 function is500(res) {
   return res.statusCode === 500
