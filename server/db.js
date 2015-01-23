@@ -1,3 +1,4 @@
+var inspect = require('util').inspect
 var Promise = require('bluebird')
 var request = Promise.promisify(require('request'))
 
@@ -48,9 +49,16 @@ exports.getProject = function(projectId) {
 getProjectVotes :: projectId:Int -> Promise votes:Int
 */
 exports.getProjectVotes = function(projectId) {
+  var responsePayload
+  var property = 'vote_count'
+
   return exports
     .getProject(projectId)
-    .get('vote_count')
+    .tap(function (responsePayload_) { responsePayload = responsePayload_ })
+    .get(property)
+    .tap(function(voteCount) {
+      if (typeof voteCount !== 'number') throw new Error('Unable to read number ' + property + ' from data: ' + inspect(responsePayload))
+    })
 }
 
 

@@ -2,7 +2,8 @@
   "license": "GPLv3",
   "private": true,
   "scripts": {
-    "test": "NODE_ENV=test mocha --compilers coffee:coffee-script/register",
+    "test": "BITLAB_VOTEVIEW_DB_POLL_INTERVAL_MS=100 NODE_ENV=test mocha --compilers coffee:coffee-script/register",
+    "test-debug": "BITLAB_VOTEVIEW_DB_POLL_INTERVAL_MS=100 NODE_ENV=dev mocha --compilers coffee:coffee-script/register",
     "start": "node --harmony server/index.js | bunyan --output short"
   },
   "dependencies": {

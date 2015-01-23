@@ -5,7 +5,6 @@ Glue = require('../server/glue')
 describe 'Glue', ->
 
   it 'creates polling streams that take from bitLab API and send to device API', (done)->
-    @timeout(12000)
 
     bitlabAPI = nock 'https://littlebits.cc/bitlab/bits'
     .get '/2.json'
@@ -21,10 +20,14 @@ describe 'Glue', ->
     .post('/output', { duration_ms: 84, percent: 100 })
     .reply(200)
 
-    glue = Glue([{ deviceId:1, projectId:2 }])
 
-    setTimeout (-> glue.end()), 6000
+    glue = undefined
+    setTimeout (->
+      glue = Glue([{ deviceId:1, projectId:2 }])
+    ), 10
+
+    setTimeout (-> glue.end()), 350
     setTimeout (->
       deviceAPI.done()
       done()
-    ), 10000
+    ), 1000
