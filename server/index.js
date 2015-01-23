@@ -1,4 +1,4 @@
-var version = require('./package').version
+var version = require('../package').version
 var data = require('./data')
 var Glue = require('./glue')
 var log = require('./log')
