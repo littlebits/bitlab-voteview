@@ -1,19 +1,20 @@
 deviceProjectMappings:
 
+
   - deviceId: 00e04c1e811a
-    projectId: 55
+    projectId: 55 # Tilt Bit
 
   - deviceId: 00e04c02c217
-    projectId: 65 
+    projectId: 65 # WII bit
 
   - deviceId: 00e04c1f024e
-    projectId: 75
+    projectId: 75 # breakout bit
 
   - deviceId: 00e04c1f0f4c
-    projectId: 77
+    projectId: 77 # wonderbeeps
 
   - deviceId: 00e04c02c297
-    projectId: 74
+    projectId: 74 # humidity sensor
 
   - deviceId: 00e04c1f0f12
-    projectId: 69
+    projectId: 69 # scratch module
