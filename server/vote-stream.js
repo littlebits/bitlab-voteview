@@ -19,15 +19,20 @@ module.exports = function voteStream(projectId) {
     },
     onValue: function(fn) {
       log.debug('project %s initial request', projectId)
+
       getProjectVotes(projectId)
       .then(function(votesNow) {
         log.debug('project %s first result is %s', projectId, votesNow)
+
         votesBefore = votesNow
+
         fn({
           before: null,
           after: votesNow
         })
+
         log.debug('project %s now being polled', projectId)
+
         requestInterval = setInterval(function() {
           log.trace('project %s requestInterval loop', projectId)
           getProjectVotes(projectId)

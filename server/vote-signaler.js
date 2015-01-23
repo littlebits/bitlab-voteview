@@ -60,10 +60,10 @@ function ConsumeOutputQueue(queue, deviceOutput) {
 function noop() {}
 
 function setLeadingInterval(f, ms) {
-  f()
+  setImmediate(f)
 
   var interval
-  var timeout = setTimeout(function(){
+  var timeout = setTimeout(function() {
     if (interval === 'CLEARED') return
     interval = setInterval(f, ms)
   }, ms)
