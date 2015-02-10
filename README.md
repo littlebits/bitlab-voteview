@@ -2,6 +2,10 @@
 
 Create and manage links between bitLab votes and cloudBits
 
+## Managing cloudBits
+
+For the littleBits team, you can find the account owning the cloudBits [here](https://github.com/littlebitselectronics/cloud-platform/blob/master/accounts.md#voteview).
+
 ## Deploying Prerequisites
 
 - You have a [Kubernetes](http://kubernetes.io) cluster on [GKE](https://cloud.google.com/container-engine/)
