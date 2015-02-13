@@ -4,7 +4,13 @@
   "scripts": {
     "test": "BITLAB_VOTEVIEW_DB_POLL_INTERVAL_MS=100 NODE_ENV=test mocha --compilers coffee:coffee-script/register",
     "test-debug": "BITLAB_VOTEVIEW_DB_POLL_INTERVAL_MS=100 NODE_ENV=dev mocha --compilers coffee:coffee-script/register",
-    "start": "node --harmony server/index.js | bunyan --output short"
+    "start": "node --harmony server/index.js | bunyan --output short",
+    "kubectl": "gcloud preview container kubectl",
+    "deploy-describe": "npm run kubectl -- describe pod bitlab-voteview",
+    "deploy-logs": "npm run kubectl -- log bitlab-voteview",
+    "deploy-delete": "npm run kubectl -- delete pod bitlab-voteview",
+    "deploy-create": "envsubst < kube/pod.yaml | npm run kubectl -- create -f -",
+    "deploy-update": "npm run deploy-delete && npm run deploy-create"
   },
   "dependencies": {
     "bluebird": "^2.3.11",
