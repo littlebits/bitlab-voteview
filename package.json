@@ -5,7 +5,7 @@
     "start": "node --harmony server/index.js | bunyan --output short",
     "deploy-create": "envsubst < kube/pod.yaml | npm run kubectl -- create -f -",
     "kubectl": "gcloud preview container kubectl",
-    "deploy-update": "npm run deploy-delete && npm run deploy-create",
+    "deploy-update": "npm run deploy-delete && sleep 5 && npm run deploy-create",
     "deploy-describe": "npm run kubectl -- describe pod bitlab-voteview",
     "deploy-delete": "npm run kubectl -- delete pod bitlab-voteview",
     "test": "BITLAB_VOTEVIEW_DB_POLL_INTERVAL_MS=100 NODE_ENV=test mocha --compilers coffee:coffee-script/register",
