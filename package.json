@@ -2,15 +2,15 @@
   "license": "GPLv3",
   "private": true,
   "scripts": {
-    "test": "BITLAB_VOTEVIEW_DB_POLL_INTERVAL_MS=100 NODE_ENV=test mocha --compilers coffee:coffee-script/register",
-    "test-debug": "BITLAB_VOTEVIEW_DB_POLL_INTERVAL_MS=100 NODE_ENV=dev mocha --compilers coffee:coffee-script/register",
     "start": "node --harmony server/index.js | bunyan --output short",
-    "kubectl": "gcloud preview container kubectl",
-    "deploy-describe": "npm run kubectl -- describe pod bitlab-voteview",
-    "deploy-logs": "npm run kubectl -- log bitlab-voteview",
-    "deploy-delete": "npm run kubectl -- delete pod bitlab-voteview",
     "deploy-create": "envsubst < kube/pod.yaml | npm run kubectl -- create -f -",
-    "deploy-update": "npm run deploy-delete && npm run deploy-create"
+    "kubectl": "gcloud preview container kubectl",
+    "deploy-update": "npm run deploy-delete && npm run deploy-create",
+    "deploy-describe": "npm run kubectl -- describe pod bitlab-voteview",
+    "deploy-delete": "npm run kubectl -- delete pod bitlab-voteview",
+    "test": "BITLAB_VOTEVIEW_DB_POLL_INTERVAL_MS=100 NODE_ENV=test mocha --compilers coffee:coffee-script/register",
+    "deploy-logs": "npm run kubectl -- log bitlab-voteview",
+    "test-debug": "BITLAB_VOTEVIEW_DB_POLL_INTERVAL_MS=100 NODE_ENV=dev mocha --compilers coffee:coffee-script/register"
   },
   "dependencies": {
     "bluebird": "^2.3.11",
@@ -29,7 +29,7 @@
   "engines": {
     "node": "0.11.x"
   },
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "index.js",
   "description": "Create and manage links between bitLab votes and cloudBits",
   "devDependencies": {
