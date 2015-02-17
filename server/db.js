@@ -1,6 +1,7 @@
 var inspect = require('util').inspect
 var Promise = require('bluebird')
 var request = Promise.promisify(require('request'))
+var projectName = require('../package').name
 
 
 
@@ -33,8 +34,11 @@ exports.getProject = function(projectId) {
   var requestConfig = {
     method: 'get',
     json: true,
-    uri: apiHost + '/bitlab/bits/' + projectId + '.json',
-    auth: apiAuth
+    uri: (apiHost + '/bitlab/bits/' + projectId + '.json'),
+    auth: apiAuth,
+    headers: {
+      'User-Agent': ('littlebits-' + projectName)
+    }
   }
 
   return request(requestConfig)
