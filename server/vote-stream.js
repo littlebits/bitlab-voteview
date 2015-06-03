@@ -5,7 +5,7 @@ of the stream is the current total votes for the project. */
 var setImmediateInterval = require('./set-immediate-interval')
 var getProjectVotes = require('./db').getProjectVotes
 var log = require('./log').child({ component: 'vote-stream' })
-var DB_POLL_INTERVAL_MS = Number(process.env.BITLAB_VOTEVIEW_DB_POLL_INTERVAL_MS) || 2000
+var DB_POLL_INTERVAL_MS = Number(process.env.BITLAB_VOTEVIEW_DB_POLL_INTERVAL_MS) || 60000
 
 
 
