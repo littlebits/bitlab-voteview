@@ -1,25 +1,24 @@
-# bitlab-voteview [![Circle CI](https://circleci.com/gh/littlebits/bitlab-voteview.svg?style=svg)](https://circleci.com/gh/littlebits/bitlab-voteview)
+image:https://circleci.com/gh/littlebits/bitlab-voteview.svg?style=svg["Circle CI", link="https://circleci.com/gh/littlebits/bitlab-voteview"]
+
+# bitlab-voteview
+:toc: macro
+
+toc::[]
 
 Create and manage links between bitLab votes and cloudBits.
 
 
 
-## Managing cloudBits
+## Deploying
 
-For the littleBits team, you can find the account owning the cloudBits [here](https://github.com/littlebitselectronics/cloud-platform/blob/master/accounts.md#voteview).
-
-
-
-## Deploying Prerequisites
+### Prerequisites
 
 1. [Kubernetes](http://kubernetes.io) cluster on [GKE](https://cloud.google.com/container-engine/)
 2. [`envsubst`](http://stackoverflow.com/questions/23620827/envsubst-command-not-found-on-mac-os-x-10-8) installed
 3. `gcloud` using default `--zone` `--cluster` and `--project`
 4. [`gcr.io`](https://gcr.io)
 
-
-
-## Deploying
+### Steps
 
 1. Build the app locally `docker build --tag ... .`
 2. Push the app to the registry you want to use `docker push ...`
@@ -31,13 +30,13 @@ See available `npm` tasks that simply this a bit.
 
 ## ENVs
 
-#### Required:
+### Required
 
 **Token that will permit this application to command cloudBits of an account:**
 
 - `BITLAB_VOTEVIEW_ACCESS_TOKEN` You can acquire this from [Cloud Control](http://control.littlebitscloud.cc/). Go to `settings` tab, then scroll down.
 
-#### Optional:
+### Optional
 
 **Change the Bitlab API URI that this project will read data from:**
 
@@ -47,3 +46,9 @@ See available `npm` tasks that simply this a bit.
 
 - `BITLAB_VOTEVIEW_AUTH_USER`
 - `BITLAB_VOTEVIEW_AUTH_PASS`
+
+
+
+## Notes
+
+- For the littleBits team, you can find the account owning the cloudBits [here](https://github.com/littlebitselectronics/cloud-platform/blob/master/accounts.md#voteview).
