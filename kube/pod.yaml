@@ -1,14 +1,12 @@
-id: bitlab-voteview
-kind: Pod
-apiVersion: v1beta1
-labels:
+kind: pod
+metadata:
   name: bitlab-voteview
-desiredState:
-  manifest:
-    version: v1beta1
-    containers:
-    - name: bitlab-voteview
-      image: quay.io/littlebits/bitlab-voteview:latest
-      env:
+  labels:
+    name: bitlab-voteview
+spec:
+  containers:
+  - name: bitlab-voteview
+    image: gcr.io/littlebits-electronics/bitlab-voteview:latest
+    env:
       - name: BITLAB_VOTEVIEW_ACCESS_TOKEN
         value: $BITLAB_VOTEVIEW_ACCESS_TOKEN

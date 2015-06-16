@@ -1,35 +1,31 @@
 # bitlab-voteview [![Circle CI](https://circleci.com/gh/littlebits/bitlab-voteview.svg?style=svg)](https://circleci.com/gh/littlebits/bitlab-voteview)
 
-Create and manage links between bitLab votes and cloudBits
+Create and manage links between bitLab votes and cloudBits.
+
+
 
 ## Managing cloudBits
 
 For the littleBits team, you can find the account owning the cloudBits [here](https://github.com/littlebitselectronics/cloud-platform/blob/master/accounts.md#voteview).
 
+
+
 ## Deploying Prerequisites
 
-- You have a [Kubernetes](http://kubernetes.io) cluster on [GKE](https://cloud.google.com/container-engine/)
-- You have [`envsubst`](http://stackoverflow.com/questions/23620827/envsubst-command-not-found-on-mac-os-x-10-8) installed
-- You have `gcloud` using default `--zone` `--cluster` and `--project`
-- If you are forking, your own Quay.io auto-build setup and have updated `kube/pod.yaml` to point to it instead of littleBits
+1. [Kubernetes](http://kubernetes.io) cluster on [GKE](https://cloud.google.com/container-engine/)
+2. [`envsubst`](http://stackoverflow.com/questions/23620827/envsubst-command-not-found-on-mac-os-x-10-8) installed
+3. `gcloud` using default `--zone` `--cluster` and `--project`
+4. [`gcr.io`](https://gcr.io)
+
+
 
 ## Deploying
 
-This project has some minor tooling to support deployment to a Kubernetes cluster. It is currently bias to GKE and hence uses the `gcloud` CLI tool, but this is not be a hard requirement; You are obviously free to use `kubectl` directly instead. In fact the tasks in `package.json` use `kubectl` as-exposed by `gcloud`.
+1. Build the app locally `docker build --tag ... .`
+2. Push the app to the registry you want to use `docker push ...`
+3. Deploy the using `kubtctl` `envsubst < kube/pod.yaml | kubectl --api-version v1beta3 create --filename -`
 
-Notes:
-- An easy way to create a Kubernetes cluster is with [GKE](https://cloud.google.com/container-engine/).
-- See available tasks via `$ npm run`.
-
-
-The folder `kube` contains a `pod.yaml` which tells Kubernetes how to run this project. It pulls from this project's image from [quay.io](http://quay.io/) which in turn we have setup (on our account there) to build a new image of this project on every push to `master` (at Github). So a full flow currently looks like this:
-
-1. Make source code updates, push to Github `master` at will
-2. Once you want to deploy, first wait for Quay to finish building the latest pushes to `master` branch on Github.
-3. Then, if this is your first deploy, execute `$ BITLAB_VOTEVIEW_ACCESS_TOKEN=... npm run deploy-create` where `...` is filled out with an `access_token` (See below for how to acquire this).
-4. If this is *not* your first deploy, but rather an update then execute `$ BITLAB_VOTEVIEW_ACCESS_TOKEN=... npm run deploy-update` following the same instructions as above for the `...` part.
-
-As Kubernetes, OpenShift, et al tools mature we expect these instructions to radically simplify.
+See available `npm` tasks that simply this a bit.
 
 
 
