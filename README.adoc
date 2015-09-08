@@ -1,11 +1,13 @@
+:toc: macro
+:toc-title:
+
 image:https://circleci.com/gh/littlebits/bitlab-voteview.svg?style=svg["Circle CI", link="https://circleci.com/gh/littlebits/bitlab-voteview"]
 
 # bitlab-voteview
-:toc: macro
+Create and manage links between bitLab votes and cloudBits.
 
 toc::[]
 
-Create and manage links between bitLab votes and cloudBits.
 
 
 
@@ -13,36 +15,37 @@ Create and manage links between bitLab votes and cloudBits.
 
 ### Prerequisites
 
-1. [Kubernetes](http://kubernetes.io) cluster on [GKE](https://cloud.google.com/container-engine/)
-2. [`envsubst`](http://stackoverflow.com/questions/23620827/envsubst-command-not-found-on-mac-os-x-10-8) installed
-3. `gcloud` using default `--zone` `--cluster` and `--project`
-4. [`gcr.io`](https://gcr.io)
+1. A link:http://kubernetes.io[Kubernetes] cluster
+2. `kubectl create secret.yaml` where `secret.yaml` has:
+
+```
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bitlab-voteview-access-token
+type: Opaque
+data:
+  bitlab-voteview-access-token: <<PUT YOUR BASE64 ENCODED ACCESS TOKEN HERE>>
+
+```
+
+This permits Voteview to command cloudBits of the respective account. You can acquire this from link:http://control.littlebitscloud.cc[Cloud Control]. Go to `settings` tab, then scroll down.
 
 ### Steps
 
 1. Build the app locally `docker build --tag ... .`
 2. Push the app to the registry you want to use `docker push ...`
-3. Deploy the using `kubtctl` `envsubst < kube/pod.yaml | kubectl --api-version v1beta3 create --filename -`
-
-See available `npm` tasks that simply this a bit.
+3. Deploy the using `kubtctl` `kubectl create --filename kube`
 
 
 
-## ENVs
+### Environment Variables
 
-### Required
-
-**Token that will permit this application to command cloudBits of an account:**
-
-- `BITLAB_VOTEVIEW_ACCESS_TOKEN` You can acquire this from [Cloud Control](http://control.littlebitscloud.cc/). Go to `settings` tab, then scroll down.
-
-### Optional
-
-**Change the Bitlab API URI that this project will read data from:**
+*Change the Bitlab API URI that this project will read data from:*
 
 - `BITLAB_VOTEVIEW_HOST`
 
-**HTTP Basic Auth Credentials that will be used for reading from the Bitlab API. Only required if the API is actually secured behind HTTP Basic Auth:**
+*HTTP Basic Auth Credentials that will be used for reading from the Bitlab API. Only required if the API is actually secured behind HTTP Basic Auth:*
 
 - `BITLAB_VOTEVIEW_AUTH_USER`
 - `BITLAB_VOTEVIEW_AUTH_PASS`

@@ -1,11 +1,17 @@
+var FS = require('fs')
 var outputConfig = require('./data').output
 var log = require('./log').child({ component: 'device-output-votes' })
 var setImmediateInterval = require('./set-immediate-interval')
 
 
 
+var accessToken = FS.readFileSync(
+  '/etc/secrets/bitlab-voteview-access-token',
+  { encoding: 'utf8' }
+)
+
 var apiOutput = require('littlebits-cloud-http').output.defaults({
-  access_token: process.env.BITLAB_VOTEVIEW_ACCESS_TOKEN,
+  access_token: accessToken,
   percent: outputConfig.percent,
   duration_ms: outputConfig.msPerVote
 })
@@ -57,5 +63,3 @@ function ConsumeOutputQueue(queue, deviceOutput) {
     }, outputConfig.msBetweenOutput)
   }
 }
-
-function noop() {}
